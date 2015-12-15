@@ -193,7 +193,10 @@ freeBall :: String -> Pos2D -> Vel2D -> ObjectSF
 freeBall name p0 v0 = proc (ObjectInput ci cs) -> do
 
   -- Cap speed
-  let v = limitNorm v0 maxVNorm
+  -- let v = limitNorm v0 maxVNorm
+  vdiff <- integral -< (0, -100.8)
+  let v' = v0 ^+^ vdiff
+      v = limitNorm v' maxVNorm
 
   -- Any free moving object behaves like this (but with
   -- acceleration. This should be in some FRP.NewtonianPhysics
